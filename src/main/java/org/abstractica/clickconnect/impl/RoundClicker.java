@@ -47,10 +47,9 @@ public class RoundClicker implements RoundClickSystem
 		full3D = csg.difference3D(full3D, text3D);
 		full3D = csg.rotate3DY(csg.degrees(90)).transform(full3D);
 
-
-			Geometry3D doubleUpClicker = csg.rotate3DY(csg.degrees(180)).transform(full3D);
-			doubleUpClicker = csg.translate3DX(0.1*unit).transform(doubleUpClicker);
-			full3D = csg.union3D(full3D, doubleUpClicker);
+		Geometry3D doubleUpClicker = csg.rotate3DY(csg.degrees(180)).transform(full3D);
+		doubleUpClicker = csg.translate3DX(0.1*unit).transform(doubleUpClicker);
+		full3D = csg.union3D(full3D, doubleUpClicker);
 
 		return full3D;
 	}
@@ -84,73 +83,75 @@ public class RoundClicker implements RoundClickSystem
 	}
 
 
-//	public Geometry3D getRoundHoleCutout(double extraLength)
-//	{
-//		double delta = 0.1;
-//		List<Vector2D> vertices = new ArrayList<>();
-//		vertices.add(csg.vector2D(0, -0.2));
-//		vertices.add(csg.vector2D(0.4*unit+delta, -0.2));
-//		vertices.add(csg.vector2D(0.4*unit+delta, 0.1*unit+0.4));
-//		vertices.add(csg.vector2D(0.3*unit+delta, 0.2*unit+0.4));
-//		vertices.add(csg.vector2D(0.3*unit+delta, 0.3*unit-0.4));
-//		vertices.add(csg.vector2D(0.4*unit+delta, 0.4*unit-0.4));
-//		vertices.add(csg.vector2D(0.4*unit+delta, (0.5+extraLength)*unit+0.2));
-//		vertices.add(csg.vector2D(0, (0.5+extraLength)*unit+0.2));
-//		Geometry2D half = csg.polygon2D(vertices);
-//		Geometry3D full3D = csg.rotateExtrude(csg.degrees(360), 128, half);
-//		return full3D;
-//	}
-
-//	public Geometry3D getLockedHoleCutout(double extraLength)
-//	{
-//		Geometry3D hole = getRoundHoleCutout(extraLength);
-//		Geometry3D sides = csg.box3D(0.50*unit, unit, (1+extraLength) * unit + 0.4, false);
-//		sides = csg.translate3DZ(-0.2).transform(sides);
-//		Geometry3D res = csg.intersection3D(hole, sides);
-//		return res;
-//	}
-
-
-
-
-
 
 	public static void main(String[] args)
 	{
 		JavaCSG csg = JavaCSGFactory.createDefault();
 
+
+		//Handle for toothbrush
+//		RoundClicker clicker = new RoundClicker(csg, 10);
+//		Geometry3D holeBottomHandle1 = clicker.getLockedHoleCutout(0);
+//		holeBottomHandle1 = csg.translate3D(0, 0, 95).transform(holeBottomHandle1);
+//		Geometry3D holeHandleBottom2 = clicker.getLockedHoleCutout(0);
+//		holeHandleBottom2 = csg.translate3D(0, 0, 90).transform(holeHandleBottom2);
+//		Geometry3D doubleHole = csg.union3D(holeBottomHandle1, holeHandleBottom2);
+//		Geometry3D cylinderHandle = csg.cylinder3D(30, 100, 50, false);
+//		Geometry3D res = csg.difference3D(cylinderHandle, doubleHole);
+//		csg.view(res);
+
+
+		//Tight double clicker for connecting handle for toothbrush with top cylinder
 //		RoundClicker doubleClicker = new RoundClicker(csg, 10);
 //		Geometry3D res = doubleClicker.getClicker(0, true);
 //		csg.view(res);
 
-		/*
-		RoundClicker clicker = new RoundClicker(csg, 10);
-		Geometry3D res = clicker.getClicker(0, true);
-		csg.view(res);
-		 */
+
+		//Top cylinder
+//		RoundClicker clicker = new RoundClicker(csg, 10);
+//
+//		Geometry3D holeSide1 = clicker.getLockedHoleCutout(0);
+//		holeSide1 = csg.translate3D(0, 33, 1.8).transform(holeSide1);
+//		holeSide1 = csg.rotate3DX(csg.degrees(90)).transform(holeSide1);
+//
+//		Geometry3D holeSide2 = clicker.getLockedHoleCutout(0);
+//		holeSide2 = csg.translate3D(0, 33, -3.2).transform(holeSide2);
+//		holeSide2 = csg.rotate3DX(csg.degrees(90)).transform(holeSide2);
+//
+//		Geometry3D doubleSideHole = csg.union3D(holeSide1, holeSide2);
+//
+//		Geometry3D holeBottom1 = clicker.getLockedHoleCutout(0);
+//		Geometry3D holeBottom2 = clicker.getLockedHoleCutout(0);
+//		holeBottom2 = csg.translate3D(0, 0, 5).transform(holeBottom2);
+//		Geometry3D doubleBottomHole = csg.union3D(holeBottom1, holeBottom2);
+//
+//		Geometry3D cylinderTop = csg.cylinder3D(14, 40, 50, false);
+//
+//		Geometry3D res1 = csg.difference3D(cylinderTop, doubleSideHole);
+//		Geometry3D res2 = csg.difference3D(res1, doubleBottomHole);
+//
+//		csg.view(res2);
 
 
-		/*
-		RoundClicker clicker = new RoundClicker(csg, 10);
-		Geometry3D hole = clicker.getRoundHoleCutout(0);
-		Geometry3D plate = csg.box3D(10, 10, 5, false);
-		//plate = csg.translate3DZ(-5).transform(plate);
-		Geometry3D res = csg.difference3D(plate, hole);
-		csg.view(res);
-		 */
-		
+		//Loose double clicker for top cylinder
+//		RoundClicker doubleClicker = new RoundClicker(csg, 10);
+//		Geometry3D res = doubleClicker.getClicker(0, false);
+//		csg.view(res);
 
-		RoundClicker clicker = new RoundClicker(csg, 10);
-		Geometry3D holeSide = clicker.getLockedHoleCutout(0);
-		// put the the hole on the top
-		holeSide = csg.translate3D(0, 33, -0.2).transform(holeSide);
-		holeSide = csg.rotate3DX(csg.degrees(90)).transform(holeSide);
 
-		Geometry3D holeButtom = clicker.getLockedHoleCutout(0);
-		Geometry3D cylinder3D = csg.cylinder3D(10, 40, 40, false);
+		//Middle part with round hole for connecting top cylinder with toothbrush head
+//		RoundClicker clicker = new RoundClicker(csg, 10);
+//		Geometry3D hole = clicker.getRoundHoleCutout(0);
+//		Geometry3D roundMiddle = csg.cylinder3D(10, 5, 50, false);
+//		Geometry3D res = csg.difference3D(roundMiddle, hole);
+//		csg.view(res);
 
-		Geometry3D res = csg.difference3D(cylinder3D, holeSide);
-		Geometry3D res2 = csg.difference3D(res, holeButtom);
-		csg.view(res2);
+
+		//End part with round hole for connecting middle part with toothbrush head (which will have the toothbrush hairs)
+//		RoundClicker clicker = new RoundClicker(csg, 10);
+//		Geometry3D hole = clicker.getRoundHoleCutout(0);
+//		Geometry3D roundEnd = csg.cylinder3D(10, 6.5, 50, false);
+//		Geometry3D res = csg.difference3D(roundEnd, hole);
+//		csg.view(res);
 	}
 }
